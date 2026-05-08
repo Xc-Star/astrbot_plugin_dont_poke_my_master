@@ -8,7 +8,7 @@ from astrbot.core import AstrBotConfig
 from astrbot.core.platform.sources.aiocqhttp.aiocqhttp_message_event import AiocqhttpMessageEvent
 
 
-@register("astrbot_plugin_dont_poke_my_master", "Xc_Star", "当主人被戳一戳，或者自己被戳一戳触发回复", "1.0.0")
+@register("astrbot_plugin_dont_poke_my_master", "Xc_Star", "当主人被戳一戳，或者自己被戳一戳触发回复", "1.0.1")
 class DontPokeMyMaster(Star):
     def __init__(self, context: Context, config: AstrBotConfig):
 
