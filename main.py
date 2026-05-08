@@ -1,10 +1,7 @@
 import asyncio
 import random
 
-from mistletoe.latex_token import Math
-from slack_sdk.models.messages.message import message
-
-from astrbot.api.event import filter, AstrMessageEvent, MessageEventResult
+from astrbot.api.event import filter, AstrMessageEvent
 from astrbot.api.star import Context, Star, register
 from astrbot.api import logger
 from astrbot.core import AstrBotConfig
@@ -17,7 +14,7 @@ class DontPokeMyMaster(Star):
 
         # 获取配置文件
         # 对自己的称呼
-        self.name = config.get("name")
+        self.bot_name = config.get("bot_name")
         # 主人列表
         self.master_list = config.get("master_list")
         # 戳主人触发概率
@@ -28,6 +25,8 @@ class DontPokeMyMaster(Star):
         self.re_poke_probability = config.get("re_poke_probability")
         # 被戳回复模板列表
         self.re_poke_template = config.get("re_poke_template")
+        # 主人戳机器人回复模板
+        self.master_poke_me_template = config.get("master_poke_me_template")
 
         super().__init__(context)
 
@@ -59,6 +58,15 @@ class DontPokeMyMaster(Star):
 
         # 如果被戳对象是机器人
         if target_id == bot_id:
+            # 如果是主人戳机器人
+            if str(sender_id) in self.master_list:
+                # 获取一个随机模板
+                template: str = random.choice(self.master_poke_me_template)
+                # 替换名字
+                message = template.format(name=self.bot_name)
+                yield event.plain_result(message)
+                await asyncio.sleep(1)
+                return
             message = await self.dont_poke_me()
             if message:
                 yield event.plain_result(message)
