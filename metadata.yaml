@@ -4,3 +4,11 @@ desc: 当主人被戳一戳，或者自己被戳一戳触发回复 # 插件简�
 version: v1.0.1 # 插件版本号。格式：v1.1.1 或者 v1.1
 author: Xc_Star # 作者
 repo: https://github.com/Xc-Star/astrbot_plugin_dont_poke_my_master # 插件的仓库地址
+tags:
+  - "戳一戳"
+  - "主人"
+  - "护主"
+keywords:
+  - 戳一戳
+  - 主人
+  - 护主
